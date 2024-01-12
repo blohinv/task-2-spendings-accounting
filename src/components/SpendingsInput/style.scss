@@ -1,0 +1,35 @@
+.spendings-input {
+  display: flex;
+  flex-direction: column;
+  &__description {
+    margin: 0;
+    font-size: 1.25rem;
+    color: rgb(39, 39, 39);
+  }
+
+  &__value {
+    height: 66px;
+    margin-right: 40px;
+    padding: 0;
+    font-size: 1.25rem;
+    text-indent: 10px;
+    border: 1px solid rgb(199, 195, 195);
+    border-radius: 8px;
+    font-family: "Roboto", sans-serif;
+
+    &::placeholder {
+      position: relative;
+      left: 15px;
+      font-family: "Roboto", sans-serif;
+      color: rgb(199, 196, 196);
+    }
+  }
+}
+
+.wide {
+  width: 46vw;
+}
+
+.average {
+  width: 23vw;
+}

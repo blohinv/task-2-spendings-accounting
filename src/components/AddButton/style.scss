@@ -1,0 +1,15 @@
+.add-button {
+  width: 200px;
+  height: 66px;
+  border: 0px solid black;
+  border-radius: 8px;
+  font-size: 1.5rem;
+  font-family: "Roboto", sans-serif;
+  background: rgb(101, 194, 147);
+  align-self: flex-end;
+
+  &:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+  }
+}

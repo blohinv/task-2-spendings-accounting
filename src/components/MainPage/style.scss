@@ -1,0 +1,21 @@
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+
+  &__title {
+    margin-top: 48px;
+    font-size: 4rem;
+    font-weight: 300;
+    font-style: italic;
+    font-family: "Roboto", sans-serif;
+    align-self: center;
+  }
+
+  &-add-spending {
+    margin-left: 100px;
+    margin-top: 60px;
+    display: flex;
+    flex-direction: row;
+  }
+}
