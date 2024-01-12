@@ -1,13 +1,13 @@
 import "./style.scss";
 
-const AddButton = ({ action, name }) => {
+const AddButton = ({ addCost, buttonText }) => {
   return (
     <button
       className="add-button"
       type="button"
-      onClick={() => action()}
+      onClick={addCost}
     >
-      {name}
+      {buttonText}
     </button>
   )
 }

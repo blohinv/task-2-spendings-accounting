@@ -1,52 +1,51 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { uid } from "uid";
-import SpendingsInput from "../SpendingsInput";
-import AddButton from "../AddButton";
+import AddForm from "../AddForm";
 import "./style.scss";
 
 const MainPage = () => {
-  const [spending, setSpending] = useState({
-    where: '',
-    howMuch: '',
+  const [cost, setCost] = useState({
+    whereSpent: '',
+    howMuchSpent: '',
     date: Date.now(),
     id: uid()
   });
+  const [errorInputs, setErrorInputs] = useState([]);
 
-  const inputHandler = (objKey, value) => {
-    setSpending({ ...spending, [objKey]: value });
+  const handleChangeInput = (name, value) => {
+    setCost({ ...cost, [name]: value });
   }
 
-  const addSpending = () => {
-    if (validateInputs()) {
-      // localStorage.setItem(`spending-${spending.id}`, JSON.stringify(spending));
-      // setSpending({ ...spending, where: '', howMuch: '', id: uid() });
+  const addCost = () => {
+    errorInputs.forEach(() => {
+      errorInputs.pop();
+    });
+    checkIfEmpty(['whereSpent', 'howMuchSpent']);
+    if (errorInputs.length === 0) {
+      localStorage.setItem(`spending-${cost.id}`, JSON.stringify(cost));
+      setCost({ ...cost, whereSpent: '', howMuchSpent: '', id: uid() });
     }
   }
 
-  const validateInputs = () => spending.where !== '' && spending.howMuch !== '';
+  const checkIfEmpty = (names) => {
+    names.forEach(name => {
+      if (cost[name]  === '') {
+        errorInputs.push(name);
+        setErrorInputs([ ...errorInputs ]);
+      }
+    })
+  }
 
   return (
     <div className="container">
       <h2 className="container__title">Учет моих расходов</h2>
-      <div className="container-add-spending">
-      <SpendingsInput
-        description={"Куда было потрачено"}
-        additionalName={"wide"}
-        inputHandler={inputHandler}
-        objKey="where"
-        value={spending.where}
-        textType="text"
+      <AddForm 
+        handleChangeInput={handleChangeInput}
+        cost={cost}
+        addCost={addCost}
+        checkIfEmpty={checkIfEmpty}
+        errorInputs={errorInputs}
       />
-      <SpendingsInput
-        description={"Сколько было потрачено"}
-        additionalName={"average"}
-        inputHandler={inputHandler}
-        objKey="howMuch"
-        value={spending.howMuch}
-        textType="number"
-      />
-      <AddButton action={addSpending} name="Добавить" />
-      </div>
     </div>
   )
 }
