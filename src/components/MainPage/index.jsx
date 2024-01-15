@@ -20,25 +20,33 @@ const MainPage = () => {
     errorInputs.forEach(() => {
       errorInputs.pop();
     });
-    checkIfEmpty(['whereSpent', 'howMuchSpent']);
+    checkIfEmpty();
     if (errorInputs.length === 0) {
       localStorage.setItem(`spending-${cost.id}`, JSON.stringify(cost));
-      setCost({ ...cost, whereSpent: '', howMuchSpent: '', id: uid() });
+      setCost({ 
+        ...cost, 
+        whereSpent: '', 
+        howMuchSpent: '', 
+        id: uid() 
+      });
     }
   }
 
-  const checkIfEmpty = (names) => {
-    names.forEach(name => {
-      if (cost[name]  === '') {
-        errorInputs.push(name);
-        setErrorInputs([ ...errorInputs ]);
-      }
-    })
+  const checkIfEmpty = () => {
+    if (!cost['whereSpent']) {
+      errorInputs.push('whereSpent')
+    }
+
+    if (cost['howMuchSpent'] <= 0) {
+      errorInputs.push('howMuchSpent');
+    }
+
+    setErrorInputs([ ...errorInputs ]);
   }
 
   return (
-    <div className="container">
-      <h2 className="container__title">Учет моих расходов</h2>
+    <div className="main-page">
+      <h2 className="main-page__title">Учет моих расходов</h2>
       <AddForm 
         handleChangeInput={handleChangeInput}
         cost={cost}
