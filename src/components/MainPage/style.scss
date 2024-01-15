@@ -1,5 +1,5 @@
-.container {
-  width: 100%;
+.main-page {
+  width: 89%;
   display: flex;
   flex-direction: column;
 
@@ -14,9 +14,16 @@
 }
 
 body {
+  background: #C5E9FF 50%;
   font-family: "Roboto", sans-serif;
 }
 
 ::placeholder {
   font-family: "Roboto", sans-serif;
+}
+
+@media screen and (max-width: 1000px) {
+  .container {
+    width: 91%;
+  }
 }

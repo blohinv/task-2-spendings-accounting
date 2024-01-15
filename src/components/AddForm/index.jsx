@@ -1,11 +1,16 @@
+import CustomButton from "../UI/CustomButton";
+import CustomInput from "../UI/CustomInput";
 import "./style.scss";
-import AddButton from "../UI/AddButton";
-import SpendingsInput from "../UI/SpendingsInput";
 
-const AddForm = ({ handleChangeInput, cost, addCost, errorInputs }) => {
+const AddForm = ({ 
+handleChangeInput,
+  cost, 
+  addCost, 
+  errorInputs 
+}) => {
   return (
-    <div className="add-field">
-      <SpendingsInput
+    <div className="add-form">
+      <CustomInput
         description="Куда было потрачено"
         additionalClass="wide"
         handleChangeInput={handleChangeInput}
@@ -14,7 +19,7 @@ const AddForm = ({ handleChangeInput, cost, addCost, errorInputs }) => {
         textType="text"
         errorInputs={errorInputs}
       />
-      <SpendingsInput
+      <CustomInput
         description="Сколько было потрачено"
         additionalClass="average"
         handleChangeInput={handleChangeInput}
@@ -23,7 +28,7 @@ const AddForm = ({ handleChangeInput, cost, addCost, errorInputs }) => {
         textType="number"
         errorInputs={errorInputs}
       />
-      <AddButton addCost={addCost} buttonText="Добавить" />
+      <CustomButton actionButton={addCost} buttonText="Добавить" />
     </div>
   )
 }
