@@ -19,7 +19,7 @@
 
     &::placeholder {
       position: relative;
-      left: 15px;
+      left: 10px;
       color: rgb(199, 196, 196);
     }
   }
@@ -40,4 +40,36 @@
 
 .average {
   width: 23vw;
+}
+
+@media screen and (max-width: 1400px) {
+  .wide {
+    width: 40vw;
+  }
+
+  .average {
+    width: 24vw;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .spendings-input {
+    &__description {
+      font-size: 1rem;
+    }
+
+    &__value {
+      &::placeholder {
+        left: 0px;
+      }
+    }
+  }
+
+  .wide {
+    width: 35vw;
+  }
+
+  .average {
+    width: 28vw;
+  }
 }

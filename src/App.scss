@@ -1,0 +1,19 @@
+body {
+  background: #C5E9FF 50%;
+  font-family: "Roboto", sans-serif;
+}
+
+::placeholder {
+  font-family: "Roboto", sans-serif;
+}
+
+button {
+  &:hover {
+    cursor: pointer;
+    transform: scale(1.05);
+  }
+
+  &:active {
+    transform: scale(1.08);
+  }
+}
