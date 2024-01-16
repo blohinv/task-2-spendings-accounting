@@ -2,47 +2,45 @@ import editIcon from "../../img/edit-icon.svg";
 import deleteIcon from "../../img/delete-icon.svg";
 import "./style.scss";
 
-const Cost = ({ cost, index, startEdit, deleteCost }) => {
-  let date = new Date(cost.whenSpent);
-  let day = date.getDate();
-  let month = date.getMonth() + 1;
-  let year = date.getFullYear();
+const Cost = ({ 
+  cost,
+  index,
+  startEdit,
+  deleteCost,
+  convertDate
+}) => {
+  const { whereSpent, whenSpent, howMuchSpent, id } = cost;
 
-  if (day < 10) day = '0' + day;
-  if (month < 10) month = '0' + month;
-
-  const whenSpent = day + '/' + month + '/' + year;
+  const dateConvertor = convertDate(whenSpent);
+  const dateWhenSpent = dateConvertor.day + '/' + dateConvertor.month + '/' + dateConvertor.year;
 
   return (
     <div className="cost">
       <div className="cost-info">
         <input 
           type="text"
-          id="cost-where-spent"
-          className="cost-info__text"
-          value={`${index + 1}) ` + cost.whereSpent}
-          readOnly={!cost.isEdit}
+          className="cost-info__text cost-where-spent"
+          value={`${index + 1}) ` + whereSpent}
+          readOnly
         />
         <input 
           type="text"
-          id="cost-when-spent"
-          className="cost-info__text"
-          value={whenSpent}
-          readOnly={!cost.isEdit}
+          className="cost-info__text cost-when-spent"
+          value={dateWhenSpent}
+          readOnly
         />
         <input 
           type="text"
-          id="cost-how-much-spent"
-          className="cost-info__text"
-          value={`${cost.howMuchSpent} р.`}
-          readOnly={!cost.isEdit}
+          className="cost-info__text cost-how-much-spent"
+          value={`${howMuchSpent} р.`}
+          readOnly
         />
       </div>
       <div className="cost-actions">
         <button 
           type="button"
           className="cost-actions__button"
-          onClick={startEdit}
+          onClick={() => startEdit(cost)}
           >
             <img 
               src={editIcon}
@@ -53,7 +51,7 @@ const Cost = ({ cost, index, startEdit, deleteCost }) => {
           <button 
           type="button"
           className="cost-actions__button"
-          onClick={() => deleteCost(cost.id)}
+          onClick={() => deleteCost(id)}
           >
             <img 
               src={deleteIcon}
