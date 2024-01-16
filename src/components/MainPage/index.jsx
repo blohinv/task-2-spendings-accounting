@@ -10,14 +10,17 @@ const MainPage = () => {
     whereSpent: '',
     howMuchSpent: '',
     whenSpent: Date.now(),
+    isEdit: false,
     id: uid()
   });
   const [allCosts, setAllCosts] = useState([]);
   const [errorInputs, setErrorInputs] = useState([]);
   const [totalSum, setTotalSum] = useState(0);
+  const [isEdit, setIsEdit] = useState(false);
 
   const handleChangeInput = (name, value) => {
     setCost({ ...cost, [name]: value, whenSpent: Date.now() });
+    console.log(allCosts);
   }
 
   const getAllCosts = () => {
@@ -61,6 +64,10 @@ const MainPage = () => {
     setTotalSum(allCosts.reduce((a, b) => a = a + Number(b.howMuchSpent), 0));
   }
 
+  const startEdit = () => {
+    setIsEdit(true);
+  }
+
   useEffect(() => {
     getAllCosts();
     calculateTotalSum();
@@ -79,9 +86,14 @@ const MainPage = () => {
       />
       <TotalPrice totalSum={totalSum} />
       <div className="costs-container">
-        {allCosts.map((cost, index) => {
-          <Cost cost={cost} index={index} />
-        })}
+        {allCosts.map((cost, index) => (
+          <Cost 
+            key={cost.id}
+            cost={cost}
+            index={index}
+            startEdit={startEdit}
+          />
+        ))}
       </div>
     </div>
   )
