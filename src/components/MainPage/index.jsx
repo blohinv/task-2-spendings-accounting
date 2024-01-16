@@ -20,7 +20,6 @@ const MainPage = () => {
 
   const handleChangeInput = (name, value) => {
     setCost({ ...cost, [name]: value, whenSpent: Date.now() });
-    console.log(allCosts);
   }
 
   const getAllCosts = () => {
@@ -68,6 +67,11 @@ const MainPage = () => {
     setIsEdit(true);
   }
 
+  const deleteCost = (id) => {
+    setAllCosts(allCosts.filter(cost => cost.id !== id));
+    localStorage.removeItem(`spending-${id}`);
+  }
+
   useEffect(() => {
     getAllCosts();
     calculateTotalSum();
@@ -92,6 +96,7 @@ const MainPage = () => {
             cost={cost}
             index={index}
             startEdit={startEdit}
+            deleteCost={deleteCost}
           />
         ))}
       </div>

@@ -2,7 +2,7 @@ import editIcon from "../../img/edit-icon.svg";
 import deleteIcon from "../../img/delete-icon.svg";
 import "./style.scss";
 
-const Cost = ({ cost, index, startEdit }) => {
+const Cost = ({ cost, index, startEdit, deleteCost }) => {
   let date = new Date(cost.whenSpent);
   let day = date.getDate();
   let month = date.getMonth() + 1;
@@ -31,7 +31,7 @@ const Cost = ({ cost, index, startEdit }) => {
           readOnly={!cost.isEdit}
         />
         <input 
-          type="number"
+          type="text"
           id="cost-how-much-spent"
           className="cost-info__text"
           value={`${cost.howMuchSpent} р.`}
@@ -53,6 +53,7 @@ const Cost = ({ cost, index, startEdit }) => {
           <button 
           type="button"
           className="cost-actions__button"
+          onClick={() => deleteCost(cost.id)}
           >
             <img 
               src={deleteIcon}
