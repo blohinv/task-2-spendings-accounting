@@ -1,14 +1,15 @@
 import { useState, useEffect } from "react";
 import { uid } from "uid";
 import AddForm from "../AddForm";
-import TotalCost from "../TotalCost";
+import TotalPrice from "../TotalPrice";
+import Cost from "../Cost";
 import "./style.scss";
 
 const MainPage = () => {
   const [cost, setCost] = useState({
     whereSpent: '',
     howMuchSpent: '',
-    creationDate: Date.now(),
+    whenSpent: Date.now(),
     id: uid()
   });
   const [allCosts, setAllCosts] = useState([]);
@@ -16,7 +17,7 @@ const MainPage = () => {
   const [totalSum, setTotalSum] = useState(0);
 
   const handleChangeInput = (name, value) => {
-    setCost({ ...cost, [name]: value, creationDate: Date.now() });
+    setCost({ ...cost, [name]: value, whenSpent: Date.now() });
   }
 
   const getAllCosts = () => {
@@ -27,7 +28,9 @@ const MainPage = () => {
     errorInputs.forEach(() => {
       errorInputs.pop();
     });
+
     checkIfEmpty();
+
     if (errorInputs.length === 0) {
       setAllCosts([...allCosts, cost]);
       localStorage.setItem(`spending-${cost.id}`, JSON.stringify(cost));
@@ -38,6 +41,8 @@ const MainPage = () => {
         id: uid() 
       });
     }
+
+    calculateTotalSum();
   }
 
   const checkIfEmpty = () => {
@@ -50,6 +55,10 @@ const MainPage = () => {
     }
 
     setErrorInputs([ ...errorInputs ]);
+  }
+
+  const calculateTotalSum = () => {
+    setTotalSum(allCosts.reduce((a, b) => a = a + Number(b.howMuchSpent), 0));
   }
 
   useEffect(() => {
@@ -68,7 +77,12 @@ const MainPage = () => {
         errorInputs={errorInputs}
         totalSum={totalSum}
       />
-      <TotalCost totalSum={totalSum} />
+      <TotalPrice totalSum={totalSum} />
+      <div className="costs-container">
+        {allCosts.map((cost, index) => {
+          <Cost cost={cost} index={index} />
+        })}
+      </div>
     </div>
   )
 }

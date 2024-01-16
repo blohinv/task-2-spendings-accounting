@@ -1,9 +1,9 @@
 import "./style.scss";
 
-const TotalCost = ({ totalSum }) => {
+const TotalPrice = ({ totalSum }) => {
   return (
     <p className="total-cost">{`Итого: ${totalSum} р.`}</p>
   )
 }
 
-export default TotalCost;
+export default TotalPrice;
