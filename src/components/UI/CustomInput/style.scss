@@ -1,6 +1,8 @@
-.spendings-input {
+.custom-input {
   display: flex;
   flex-direction: column;
+  min-height: 120px;
+  max-height: 141px;
   
   &__description {
     margin: 0;

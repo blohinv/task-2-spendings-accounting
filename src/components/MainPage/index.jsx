@@ -4,6 +4,7 @@ import AddForm from "../AddForm";
 import TotalPrice from "../TotalPrice";
 import Cost from "../Cost";
 import EditCost from "../EditCost";
+import { convertDate } from "../../helpers";
 import "./style.scss";
 
 const MainPage = () => {
@@ -36,6 +37,8 @@ const MainPage = () => {
       errorInputs.pop();
     });
 
+    cost.howMuchSpent = Number(cost.howMuchSpent);
+
     checkIfEmpty();
 
     if (errorInputs.length === 0) {
@@ -44,28 +47,12 @@ const MainPage = () => {
       setCost({ 
         ...cost, 
         whereSpent: '', 
-        howMuchSpent: '', 
+        howMuchSpent: Number(''), 
         id: uid() 
       });
     }
 
     calculateTotalSum();
-  }
-
-  const checkIfEmpty = () => {
-    if (!cost['whereSpent']) {
-      errorInputs.push('whereSpent')
-    }
-
-    if (cost['howMuchSpent'] <= 0) {
-      errorInputs.push('howMuchSpent');
-    }
-
-    setErrorInputs([ ...errorInputs ]);
-  }
-
-  const calculateTotalSum = () => {
-    setTotalSum(allCosts.reduce((a, b) => a = a + Number(b.howMuchSpent), 0));
   }
 
   const startEdit = (cost) => {
@@ -118,16 +105,21 @@ const MainPage = () => {
     localStorage.removeItem(`spending-${id}`);
   }
 
-  const convertDate = (dateToConvert) => {
-    let date = new Date(dateToConvert);
-    let day = date.getDate();
-    let month = date.getMonth() + 1;
-    let year = date.getFullYear();
+  const checkIfEmpty = () => {
+    if (!cost['whereSpent']) {
+      errorInputs.push('whereSpent')
+    }
 
-    if (day < 10) day = '0' + day;
-    if (month < 10) month = '0' + month;
+    if (cost['howMuchSpent'] <= 0 
+      || typeof cost['howMuchSpent'] !== 'number') {
+      errorInputs.push('howMuchSpent');
+    }
 
-    return { day: day, month: month, year: year };
+    setErrorInputs([ ...errorInputs ]);
+  }
+
+  const calculateTotalSum = () => {
+    setTotalSum(allCosts.reduce((a, b) => a = a + Number(b.howMuchSpent), 0));
   }
 
   const sortBySum = (array) => {
@@ -167,7 +159,6 @@ const MainPage = () => {
                 index={index}
                 startEdit={startEdit}
                 deleteCost={deleteCost}
-                convertDate={convertDate}
               />
             )
           )}

@@ -3,7 +3,7 @@ import CustomInput from "../UI/CustomInput";
 import "./style.scss";
 
 const AddForm = ({ 
-handleChangeInput,
+  handleChangeInput,
   cost, 
   addCost, 
   errorInputs 

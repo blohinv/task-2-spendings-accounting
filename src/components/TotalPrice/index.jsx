@@ -2,7 +2,7 @@ import "./style.scss";
 
 const TotalPrice = ({ totalSum }) => {
   return (
-    <p className="total-cost">{`Итого: ${totalSum} р.`}</p>
+    <p className="total-price">{`Итого: ${totalSum} р.`}</p>
   )
 }
 

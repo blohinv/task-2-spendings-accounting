@@ -1,6 +1,6 @@
 import "./style.scss";
 
-const AddButton = ({ actionButton, buttonText }) => {
+const CustomButton = ({ actionButton, buttonText }) => {
   return (
     <button
       className="add-button"
@@ -12,4 +12,4 @@ const AddButton = ({ actionButton, buttonText }) => {
   )
 }
 
-export default AddButton;
+export default CustomButton;

@@ -1,7 +1,6 @@
-import { useState } from "react";
 import "./style.scss";
 
-const SpendingsInput = ({ 
+const CustomInput = ({ 
   description, 
   additionalClass, 
   handleChangeInput, 
@@ -11,20 +10,20 @@ const SpendingsInput = ({
   errorInputs
 }) => {
   return (
-    <div className="spendings-input">
-      <p className="spendings-input__description">{`${description}:`}</p> {/*<----- !ТУТ ДВОЕТОЧИЕ! ПОЭТОМУ В СКОБКАХ! ПОЗЖЕ ЭТОТ КОММЕНТ УДАЛЮ */}
-      <input                                      /* ПРЯМ ВОТ ТУТ ^ */
-        className={`spendings-input__value ${additionalClass} ${errorInputs.includes(name) ? "input_empty" : ""}`}
+    <div className="custom-input">
+      <p className="custom-input__description">{`${description}:`}</p> 
+      <input                                      
+        className={`custom-input__value ${additionalClass} ${errorInputs.includes(name) ? "input_empty" : ""}`}
         type={textType}
         value={value}
         onChange={(event) => handleChangeInput(name, event.target.value)}
         placeholder={description}
       />
-      <p className="spendings-input__error-message">
-        {errorInputs.includes(name) ? "Заполните пустое поле!" : ""}
+      <p className="custom-input__error-message">
+        {errorInputs.includes(name) ? "Неверный формат или заполните пустое поле!" : ""}
       </p>
     </div>
   )
 }
 
-export default SpendingsInput;
+export default CustomInput;

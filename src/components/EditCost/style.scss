@@ -1,34 +1,3 @@
-.cost {
-  margin-left: 5%;
-  display: flex;
-  flex-direction: row;
-
-  &-info {
-    margin: 25px 0;
-    display: flex;
-    flex-direction: row;
-
-    &__text {
-      font-size: 2.5rem;
-      border: 0;
-      background: #C5E9FF 50%;
-      word-wrap: break-word;
-    }
-  }
-
-  &-actions {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-
-    &__button {
-      margin: 0 5px;
-      background: #C5E9FF 50%;
-      border: 0;
-    }
-  }
-}
-
 .edit-cost {
   background-color: #fff;
 }
