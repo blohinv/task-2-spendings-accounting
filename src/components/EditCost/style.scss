@@ -46,7 +46,7 @@
 }
 
 @media screen and (max-width: 1400px) {
-  .cost {
+  .edit-cost {
     &-info {
       &__text {
         font-size: 2.25rem;
@@ -56,7 +56,7 @@
 }
 
 @media screen and (max-width: 1050px) {
-  .cost {
+  .edit-cost {
     margin-left: 0;
     flex-direction: column;
     

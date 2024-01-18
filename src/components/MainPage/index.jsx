@@ -63,16 +63,18 @@ const MainPage = () => {
 
     let costIndex = allCosts.findIndex(currentCost => currentCost.id === cost.id);
 
-    if (costIndex >= 0) {
-      allCosts[costIndex].isEdit = true;
-  
-      const dateConvertor = convertDate(cost.whenSpent);
-      const dateWhenSpent = dateConvertor.year + '-' + dateConvertor.month + '-' + dateConvertor.day;
-  
-      cost.whenSpent = dateWhenSpent;
-  
-      setCostToEdit(cost);
+    if (costIndex === -1) {
+      return;
     }
+
+    allCosts[costIndex].isEdit = true;
+
+    const dateConvertor = convertDate(cost.whenSpent);
+    const dateWhenSpent = dateConvertor.year + '-' + dateConvertor.month + '-' + dateConvertor.day;
+
+    cost.whenSpent = dateWhenSpent;
+
+    setCostToEdit(cost);
   }
 
   const confirmEdit = (cost) => {
@@ -82,36 +84,38 @@ const MainPage = () => {
     ) {
       let costIndex = allCosts.findIndex(currentCost => currentCost.id === cost.id);
 
-      if (costIndex >= 0) {
-        allCosts[costIndex] = cost;
-        allCosts[costIndex].isEdit = false;
-        allCosts[costIndex].whenSpent = new Date(cost.whenSpent).getTime();
-  
-        setCostToEdit({ ...costToEdit, isEdit: false });
-        
-        localStorage.setItem(`spending-${cost.id}`, JSON.stringify(cost));
-  
-        calculateTotalSum();
+      if (costIndex === -1) {
+        return;
       }
+
+      allCosts[costIndex] = cost;
+      allCosts[costIndex].isEdit = false;
+      allCosts[costIndex].whenSpent = new Date(cost.whenSpent).getTime();
+
+      setCostToEdit({ ...costToEdit, isEdit: false });
+      
+      localStorage.setItem(`spending-${cost.id}`, JSON.stringify(cost));
+
+      calculateTotalSum();
     }
   }
 
   const cancelEdit = (costToCancel) => {
     let costIndex = allCosts.findIndex(currentCost => currentCost.id === costToCancel.id);
 
-    if (costIndex >= 0) {
-      allCosts[costIndex].isEdit = false;
-      setCostToEdit({ ...costToEdit, isEdit: false });
+    if (costIndex === -1) {
+      return;
     }
+
+    allCosts[costIndex].isEdit = false;
+    setCostToEdit({ ...costToEdit, isEdit: false });
   }
 
   const deleteCost = (id) => {
-    if (id) {
-      setAllCosts(allCosts.filter(cost => cost.id !== id));
-      localStorage.removeItem(`spending-${id}`);
-  
-      calculateTotalSum();
-    }
+    setAllCosts(allCosts.filter(cost => cost.id !== id));
+    localStorage.removeItem(`spending-${id}`);
+
+    calculateTotalSum();
   }
 
   const checkIfEmpty = () => {
