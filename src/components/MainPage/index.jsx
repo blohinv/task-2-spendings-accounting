@@ -21,7 +21,7 @@ const MainPage = () => {
   const [totalSum, setTotalSum] = useState(0);
 
   const handleChangeInput = (name, value) => {
-    setCost({ ...cost, [name]: value, whenSpent: Date.now() });
+    setCost({ ...cost, [name]: value });
   }
 
   const handleChangeCostInfo = (key, value) => {
@@ -29,7 +29,7 @@ const MainPage = () => {
   }
 
   const getAllCosts = () => {
-    sortBySum([ ...Object.values(localStorage).map(value => JSON.parse(value))]);
+    setAllCosts([ ...Object.values(localStorage).map(value => JSON.parse(value))]);
   }
 
   const addCost = () => {
@@ -38,16 +38,17 @@ const MainPage = () => {
     });
 
     cost.howMuchSpent = Number(cost.howMuchSpent);
+    cost.whenSpent = Date.now();
 
     checkIfEmpty();
 
     if (errorInputs.length === 0) {
-      sortBySum([...allCosts, cost]);
+      setAllCosts([...allCosts, cost]);
       localStorage.setItem(`spending-${cost.id}`, JSON.stringify(cost));
       setCost({ 
         ...cost, 
         whereSpent: '', 
-        howMuchSpent: Number(''), 
+        howMuchSpent: '', 
         id: uid() 
       });
     }
@@ -56,53 +57,61 @@ const MainPage = () => {
   }
 
   const startEdit = (cost) => {
-    if (Object.keys(costToEdit).length === 0) {
-      cost.isEdit = true;
+    if (allCosts.findIndex(currentCost => currentCost.isEdit) !== -1) {
+      return;
+    }
+
+    let costIndex = allCosts.findIndex(currentCost => currentCost.id === cost.id);
+
+    if (costIndex >= 0) {
+      allCosts[costIndex].isEdit = true;
   
       const dateConvertor = convertDate(cost.whenSpent);
       const dateWhenSpent = dateConvertor.year + '-' + dateConvertor.month + '-' + dateConvertor.day;
-
+  
       cost.whenSpent = dateWhenSpent;
-
+  
       setCostToEdit(cost);
     }
   }
 
   const confirmEdit = (cost) => {
-    if (costToEdit.whenSpent
+    if (costToEdit.whereSpent
       && costToEdit.whenSpent
       && costToEdit.howMuchSpent > 0
     ) {
-      for (let i = 0; i < allCosts.length; i++) {
-        if (allCosts[i].id === cost.id) {
-          allCosts[i] = cost;
-          allCosts[i].isEdit = false;
-          allCosts[i].whenSpent = new Date(cost.whenSpent).getTime();
-          break;
-        }
+      let costIndex = allCosts.findIndex(currentCost => currentCost.id === cost.id);
+
+      if (costIndex >= 0) {
+        allCosts[costIndex] = cost;
+        allCosts[costIndex].isEdit = false;
+        allCosts[costIndex].whenSpent = new Date(cost.whenSpent).getTime();
+  
+        setCostToEdit({ ...costToEdit, isEdit: false });
+        
+        localStorage.setItem(`spending-${cost.id}`, JSON.stringify(cost));
+  
+        calculateTotalSum();
       }
-      
-      sortBySum(allCosts);
-      setCostToEdit({});
-      
-      localStorage.setItem(`spending-${cost.id}`, JSON.stringify(cost));
     }
   }
 
-  const cancelEdit = (costCancel) => {
-    for (let i = 0; i < allCosts.length; i++) {
-      if (allCosts[i].id === costCancel.id) {
-        allCosts[i].isEdit = false;
-        break;
-      }
+  const cancelEdit = (costToCancel) => {
+    let costIndex = allCosts.findIndex(currentCost => currentCost.id === costToCancel.id);
+
+    if (costIndex >= 0) {
+      allCosts[costIndex].isEdit = false;
+      setCostToEdit({ ...costToEdit, isEdit: false });
     }
-    
-    setCostToEdit({});
   }
 
   const deleteCost = (id) => {
-    sortBySum(allCosts.filter(cost => cost.id !== id));
-    localStorage.removeItem(`spending-${id}`);
+    if (id) {
+      setAllCosts(allCosts.filter(cost => cost.id !== id));
+      localStorage.removeItem(`spending-${id}`);
+  
+      calculateTotalSum();
+    }
   }
 
   const checkIfEmpty = () => {
@@ -119,11 +128,8 @@ const MainPage = () => {
   }
 
   const calculateTotalSum = () => {
-    setTotalSum(allCosts.reduce((a, b) => a = a + Number(b.howMuchSpent), 0));
-  }
-
-  const sortBySum = (array) => {
-    setAllCosts(array.sort((a, b) => a.howMuchSpent - b.howMuchSpent));
+    setTotalSum([ ...Object.values(localStorage).map(value => JSON.parse(value))]
+    .reduce((a, b) => a = a + Number(b.howMuchSpent), 0));
   }
 
   useEffect(() => {
@@ -143,11 +149,11 @@ const MainPage = () => {
         totalSum={totalSum}
       />
       <TotalPrice totalSum={totalSum} />
-      <div className="costs-container">
+      <div className="main-page-costs-container">
         {allCosts.map((cost, index) => (
           cost.isEdit  
-            ?  <EditCost
-                key={cost.id}
+            ? <EditCost
+                key={`edit-${cost.id}`}
                 costToEdit={costToEdit}
                 handleChangeCostInfo={handleChangeCostInfo}
                 confirmEdit={confirmEdit}

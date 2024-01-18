@@ -3,7 +3,7 @@ import "./style.scss";
 const CustomButton = ({ actionButton, buttonText }) => {
   return (
     <button
-      className="add-button"
+      className="custom-button"
       type="button"
       onClick={actionButton}
     >

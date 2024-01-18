@@ -5,7 +5,7 @@
   max-height: 141px;
   
   &__description {
-    margin: 0;
+    margin: 10px 0;
     font-size: 1.25rem;
     color: rgb(39, 39, 39);
   }
@@ -54,24 +54,20 @@
   }
 }
 
-@media screen and (max-width: 1000px) {
-  .spendings-input {
-    &__description {
-      font-size: 1rem;
-    }
 
-    &__value {
-      &::placeholder {
-        left: 0px;
-      }
-    }
-  }
 
-  .wide {
-    width: 35vw;
-  }
-
+@media screen and (max-width: 1050px) {
+  .custom-input,
+  .wide,
   .average {
-    width: 28vw;
+    width: 100%;
+  }
+
+  .custom-input {
+    min-height: 140px;
+
+    &__description {
+      margin-bottom: 10px;
+    }
   }
 }

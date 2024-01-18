@@ -2,11 +2,21 @@
   margin-left: 5%;
   display: flex;
   flex-direction: row;
-
+  
   &-info {
-    margin: 25px 0;
+    margin: 5px 0;
     display: flex;
     flex-direction: row;
+    align-items: center;
+
+    &-date-cost {
+      width: 32vw;
+      height: 100px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
 
     &__text {
       font-size: 2.5rem;
@@ -29,6 +39,18 @@
       border: 0;
     }
   }
+
+  &-where-spent {
+    width: 43vw;
+  }
+
+  &-when-spent {
+    width: 18vw;
+  }
+
+  &-how-much-spent {
+    width: 11vw;
+  }
 }
 
 @media screen and (max-width: 1400px) {
@@ -37,6 +59,59 @@
       &__text {
         font-size: 2.25rem;
       }
+    }
+
+    &-where-spent {
+      width: 41vw;
+    }
+  
+    &-when-spent {
+      width: 18vw;
+    }
+  
+    &-how-much-spent {
+      width: 10vw;
+    }
+  }
+}
+
+@media screen and (max-width: 1050px) {
+  .cost {
+    margin-left: 0;
+    flex-direction: column;
+    
+    &-info {
+      align-items: center;
+
+      &-date-cost {
+        width: 34vw;
+        flex-direction: column;
+      }
+
+      &__text {
+        font-size: 2.5rem;
+        margin: 0;
+      }
+    }
+
+    &-actions {
+      align-self: flex-end;
+  
+      &__button {
+        margin: 0 5px;
+        background: #C5E9FF 50%;
+        border: 0;
+      }
+    }
+
+    &-where-spent {
+      width: 55vw;
+    }
+  
+    &-when-spent,
+    &-how-much-spent {
+      width: 33vw;
+      text-align: end;
     }
   }
 }

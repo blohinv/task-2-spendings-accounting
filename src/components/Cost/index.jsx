@@ -18,8 +18,10 @@ const Cost = ({
     <div className="cost">
       <div className="cost-info">
         <p className="cost-info__text cost-where-spent">{`${index + 1}) ` + whereSpent}</p>
-        <p className="cost-info__text cost-when-spent">{dateWhenSpent}</p>
-        <p className="cost-info__text cost-how-much-spent">{`${howMuchSpent} р.`}</p>
+        <div className="cost-info-date-cost">
+          <p className="cost-info__text cost-when-spent">{dateWhenSpent}</p>
+          <p className="cost-info__text cost-how-much-spent">{`${howMuchSpent} р.`}</p>
+        </div>
       </div>
       <div className="cost-actions">
         <button 

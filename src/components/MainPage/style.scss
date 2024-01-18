@@ -14,17 +14,15 @@
   }
 }
 
-body {
-  background: #C5E9FF 50%;
-  font-family: "Roboto", sans-serif;
-}
+@media screen and (max-width: 1050px) {
+  .main-page {
+    width: 90%;
+    margin-left: 5vw;
 
-::placeholder {
-  font-family: "Roboto", sans-serif;
-}
-
-@media screen and (max-width: 1000px) {
-  .container {
-    width: 91%;
+    &__title {
+      align-self: flex-start;
+      margin-left: 0vw;
+      margin-bottom: 0;
+    }
   }
 }

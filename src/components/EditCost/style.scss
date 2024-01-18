@@ -1,5 +1,48 @@
 .edit-cost {
-  background-color: #fff;
+  margin-left: 5%;
+  display: flex;
+  flex-direction: row;
+  
+  &-info {
+    margin: 5px 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    &-date-cost {
+      width: 32vw;
+      height: 100px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    &__text {
+      font-size: 2.5rem;
+      border: 0;
+      background: #C5E9FF 50%;
+      word-wrap: break-word;
+      margin: 0 2vw 0 0;
+      padding: 0;
+    }
+  }
+
+  &-actions {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    &__button {
+      margin: 0 5px;
+      background: #C5E9FF 50%;
+      border: 0;
+    }
+  }
+
+  &__input {
+    background: #fff;
+  }
 }
 
 @media screen and (max-width: 1400px) {
@@ -7,6 +50,35 @@
     &-info {
       &__text {
         font-size: 2.25rem;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1050px) {
+  .cost {
+    margin-left: 0;
+    flex-direction: column;
+    
+    &-info {
+      align-items: center;
+
+      &-date-cost {
+        flex-direction: column;
+      }
+
+      &__text {
+        font-size: 2.5rem;
+      }
+    }
+
+    &-actions {
+      align-self: flex-end;
+  
+      &__button {
+        margin: 0 5px;
+        background: #C5E9FF 50%;
+        border: 0;
       }
     }
   }
